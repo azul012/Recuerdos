@@ -280,28 +280,44 @@
       box-shadow: 0 18px 42px rgba(123, 31, 50, 0.18);
     }
 
-    .photo,
-    .no-photo {
-      width: 100%;
-      height: clamp(150px, 20vw, 190px);
-      display: block;
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      padding: 12px;
+      background: #f8f4f1;
       border-bottom: 1px solid rgba(123, 31, 50, 0.1);
     }
 
-    .photo {
-      padding: 8px;
+    .photo-cell {
+      position: relative;
+      min-height: 98px;
+      overflow: hidden;
       background: #f1ece8;
-      object-fit: contain;
-      object-position: center;
-    }
-
-    .no-photo {
+      border-radius: 10px;
+      border: 1px solid rgba(123, 31, 50, 0.12);
       display: grid;
       place-items: center;
-      font-size: 42px;
-      background:
-        linear-gradient(135deg, rgba(234, 216, 217, 0.95), rgba(251, 248, 246, 0.92)),
-        repeating-linear-gradient(45deg, rgba(123, 31, 50, 0.07) 0 10px, transparent 10px 20px);
+    }
+
+    .photo-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .photo-placeholder {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 12px;
+      color: var(--muted);
+      font-size: 15px;
+      text-align: center;
+      line-height: 1.35;
     }
 
     .month-content {
@@ -399,86 +415,44 @@
       box-shadow: 0 14px 32px rgba(47, 39, 40, 0.16);
     }
 
-    .collage {
-      padding: 40px 0 0;
-      max-width: 1080px;
-      margin: 0 auto;
-    }
-
-    .collage-description {
-      margin: 10px 0 22px;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.6;
-      text-align: center;
-    }
-
-    .collage-upload {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 18px;
-      text-align: center;
-    }
-
-    .collage-upload label {
-      font-weight: 700;
-      color: var(--accent-dark);
-    }
-
-    .collage-upload input {
-      min-width: 240px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(123, 31, 50, 0.18);
-      background: white;
-      color: var(--ink);
-      cursor: pointer;
-    }
-
-    .collage-grid {
+    .photo-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      gap: 6px;
+      padding: 12px;
+      background: #f8f4f1;
+      border-bottom: 1px solid rgba(123, 31, 50, 0.1);
     }
 
-    .collage-cell {
-      min-height: 220px;
-      border-radius: 16px;
+    .photo-cell {
+      position: relative;
+      min-height: 98px;
       overflow: hidden;
-      background: linear-gradient(135deg, rgba(234, 216, 217, 0.95), rgba(251, 248, 246, 0.92));
+      background: #f1ece8;
+      border-radius: 10px;
       border: 1px solid rgba(123, 31, 50, 0.12);
       display: grid;
       place-items: center;
-      color: var(--muted);
-      font-size: 18px;
-      text-align: center;
-      padding: 18px;
-      position: relative;
     }
 
-    .collage-cell img {
+    .photo-cell img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center;
+      display: block;
     }
 
-    .secondary-button {
-      border: 1px solid rgba(123, 31, 50, 0.18);
-      background: white;
-      color: var(--accent-dark);
-      border-radius: 999px;
-      padding: 10px 18px;
-      cursor: pointer;
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    .secondary-button:hover {
-      background: rgba(123, 31, 50, 0.06);
-      transform: translateY(-1px);
+    .photo-placeholder {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 12px;
+      color: var(--muted);
+      font-size: 15px;
+      text-align: center;
+      line-height: 1.35;
     }
 
     .closing {
@@ -633,22 +607,6 @@
         <div class="months" id="monthList"></div>
         <div class="memory-panel" id="memoryPanel"></div>
       </section>
-
-      <section class="collage" aria-labelledby="collage-title">
-        <h2 id="collage-title">Collage de fotos</h2>
-        <p class="collage-description">Sube hasta 4 fotos para verlas juntas en un collage dentro de la página.</p>
-        <div class="collage-upload">
-          <label for="photoUpload">Elige hasta 4 imágenes</label>
-          <input id="photoUpload" type="file" accept="image/*" multiple>
-          <button class="secondary-button" id="clearCollage" type="button">Limpiar collage</button>
-        </div>
-        <div class="collage-grid" id="collageGrid">
-          <div class="collage-cell">Foto 1</div>
-          <div class="collage-cell">Foto 2</div>
-          <div class="collage-cell">Foto 3</div>
-          <div class="collage-cell">Foto 4</div>
-        </div>
-      </section>
       <section class="closing">
         <p>"Un mes a la vez, sin adelantarnos."</p>
       </section>
@@ -671,19 +629,50 @@
       seconds: document.getElementById("seconds")
     };
 
-    function rutaFotoPorMes(numero) {
-      return `fotos/mes${numero}.jpg`;
+    function rutaFotosPorMes(numero) {
+      return Array.from({ length: 4 }, (_, index) => `fotos/mes${numero}-${index + 1}.jpg`);
     }
 
-    function obtenerFoto(numero) {
-      return (recuerdos[numero] && recuerdos[numero].foto) || rutaFotoPorMes(numero);
+    function obtenerFotos(numero) {
+      const recuerdo = recuerdos[numero];
+      if (recuerdo) {
+        if (Array.isArray(recuerdo.fotos) && recuerdo.fotos.length) {
+          return recuerdo.fotos.slice(0, 4);
+        }
+        if (recuerdo.foto) {
+          return [recuerdo.foto];
+        }
+      }
+      return rutaFotosPorMes(numero);
+    }
+
+    function crearFotosHTML(fotos, numero) {
+      return Array.from({ length: 4 }, (_, index) => {
+        const foto = fotos[index] || "";
+        if (!foto) {
+          return `
+            <div class="photo-cell">
+              <div class="photo-placeholder">Foto ${index + 1}</div>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="photo-cell">
+            <img
+              src="${foto}"
+              alt="Foto ${index + 1} del recuerdo ${numero}"
+              onerror="manejarErrorFoto(this, ${numero})"
+            >
+          </div>
+        `;
+      }).join("");
     }
 
     function manejarErrorFoto(imagen, numero) {
       const marcador = document.createElement("div");
-      marcador.className = "no-photo";
-      marcador.setAttribute("aria-hidden", "true");
-      marcador.textContent = String(numero).padStart(2, "0");
+      marcador.className = "photo-cell";
+      marcador.innerHTML = `<div class='photo-placeholder'>Foto no disponible</div>`;
       imagen.replaceWith(marcador);
     }
 
@@ -796,13 +785,11 @@
         tarjeta.className = "month";
         tarjeta.classList.toggle("current", actual);
 
+        const fotos = obtenerFotos(numero);
         const imagenHTML = `
-          <img
-            class="photo"
-            src="${foto}"
-            alt="Recuerdo del mes ${numero}"
-            onerror="manejarErrorFoto(this, ${numero})"
-          >
+          <div class="photo-grid">
+            ${crearFotosHTML(fotos, numero)}
+          </div>
         `;
 
         tarjeta.innerHTML = `
@@ -830,14 +817,12 @@
       }
 
       const recuerdo = recuerdos[numero] || recuerdoPorDefecto(numero);
-      const foto = obtenerFoto(numero);
+      const fotos = obtenerFotos(numero);
       const panel = document.getElementById("memoryPanel");
       const fotoHTML = `
-        <img
-          src="${foto}"
-          alt="Foto del recuerdo ${numero}"
-          onerror="this.remove()"
-        >
+        <div class="photo-grid">
+          ${crearFotosHTML(fotos, numero)}
+        </div>
       `;
 
       panel.innerHTML = `
@@ -850,82 +835,6 @@
       crearMarcas();
     }
 
-    const collageKey = "aniversario-collage";
-    const collageInput = document.getElementById("photoUpload");
-    const collageGrid = document.getElementById("collageGrid");
-    const clearCollageButton = document.getElementById("clearCollage");
-    const collageLimit = 4;
-
-    function renderCollage(images = []) {
-      if (!images.length) {
-        collageGrid.innerHTML = Array.from({ length: collageLimit }, (_, index) => `
-          <div class="collage-cell">Foto ${index + 1}</div>
-        `).join("");
-        return;
-      }
-
-      collageGrid.innerHTML = images.slice(0, collageLimit).map((src, index) => `
-        <div class="collage-cell">
-          <img src="${src}" alt="Foto del collage ${index + 1}">
-        </div>
-      `).join("");
-
-      for (let i = images.length; i < collageLimit; i++) {
-        collageGrid.innerHTML += `
-          <div class="collage-cell">Foto ${i + 1}</div>
-        `;
-      }
-    }
-
-    function guardarCollage(images) {
-      try {
-        localStorage.setItem(collageKey, JSON.stringify(images));
-      } catch (_) {
-        // LocalStorage no disponible
-      }
-    }
-
-    function cargarCollageGuardado() {
-      try {
-        const saved = localStorage.getItem(collageKey);
-        return saved ? JSON.parse(saved) : [];
-      } catch (_) {
-        return [];
-      }
-    }
-
-    function handleCollageUpload(event) {
-      const files = Array.from(event.target.files).slice(0, collageLimit);
-
-      if (!files.length) {
-        renderCollage([]);
-        guardarCollage([]);
-        return;
-      }
-
-      if (files.length > collageLimit) {
-        alert("Selecciona un máximo de 4 fotos para el collage.");
-      }
-
-      Promise.all(files.map((file) => new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.readAsDataURL(file);
-      }))).then((urls) => {
-        renderCollage(urls);
-        guardarCollage(urls);
-      });
-    }
-
-    function limpiarCollage() {
-      collageInput.value = "";
-      renderCollage([]);
-      guardarCollage([]);
-    }
-
-    collageInput.addEventListener("change", handleCollageUpload);
-    clearCollageButton.addEventListener("click", limpiarCollage);
-    renderCollage(cargarCollageGuardado());
 
     function crearMarcas() {
       for (let i = 0; i < 12; i++) {
