@@ -2,10 +2,10 @@
 
 Pon aqui las fotos de cada mes con estos nombres:
 
-- `mes1.jpg`
-- `mes2.jpg`
-- `mes3.jpg`
-- `mes4.jpg`
+- `mes1-1.jpg`
+- `mes1-2.jpg`
+- `mes1-3.jpg`
+- `mes1-4.jpg`
 
 Y asi sucesivamente hasta `mes24.jpg`.
 
