@@ -2,7 +2,7 @@ const recuerdos = {
   1: {
     titulo: "Primer mes",
     mensaje: "Espacio para escribir el recuerdo del primer mes.",
-    foto: ""
+    foto: "fotos/mes1-1.jpg"
   },
   2: {
     titulo: "Segundo mes",

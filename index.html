@@ -778,7 +778,6 @@
       for (let numero = 1; numero <= mesesVisibles; numero++) {
         const actual = numero === mesesVisibles;
         const recuerdo = recuerdos[numero] || recuerdoPorDefecto(numero);
-        const foto = obtenerFoto(numero);
         const fechaMes = crearFechaMensual(numero);
         const tarjeta = document.createElement("article");
 
