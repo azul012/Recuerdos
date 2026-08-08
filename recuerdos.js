@@ -1,12 +1,12 @@
 const recuerdos = {
   1: {
     titulo: "Primer mes",
-    mensaje: "Espacio para escribir el recuerdo del primer mes.",
+    mensaje: "Amor, me demoré haciendo esto, pero quería hacerte algo especial para recordar este tiempo juntos. Te amo porque eres alegre, cariñoso y hacés que todo se vea más bonito.",
     fotos: ["fotos/mes1-1.jpg", "fotos/mes1-2.jpg", "fotos/mes1-3.jpg"]
   },
   2: {
     titulo: "Segundo mes",
-    mensaje: "Espacio para una foto, una fecha o una nota breve.",
+    mensaje: "Un recuerdo pequeño para guardar un momento simple, pero muy nuestro.",
     foto: ""
   },
   3: {
